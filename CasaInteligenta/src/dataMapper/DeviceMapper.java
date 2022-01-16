@@ -116,6 +116,5 @@ public class DeviceMapper {
 		writer.close();
 		
 		notificationManager.displayMessage("A fost sters: " + device.getId() + ". " + device.getName(), MessageType.INFO);
-
 	}
 }

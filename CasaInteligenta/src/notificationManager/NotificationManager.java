@@ -31,5 +31,6 @@ public class NotificationManager {
 		icon.setImageAutoSize(true);
 		this.tray.add(icon);
 		icon.displayMessage("Casa Inteligenta", message, type);
+		System.out.println(message);
 	}
 }
