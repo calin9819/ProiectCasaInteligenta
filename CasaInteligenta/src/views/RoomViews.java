@@ -17,16 +17,18 @@ public class RoomViews {
 		System.out.println("2. Inapoi");
 	}
 	
-	public void roomDetails(Room room) {
+	public void roomDetails(Room room, Device[] devices) {
 		System.out.println("Id camera: " + room.getId());
 		System.out.println("Denumirea camerei: " + room.getName());
 		System.out.println("Dispozitive aflate in camera: ");
-		if(room.getDevices() != null) {
-			for(int i = 0; i < room.getDevices().size(); i++) {
-				System.out.println(i + " " + room.getDevices().get(i));
+		boolean hasDevice = false;
+		for(int i = 0; i < devices.length; i++) {
+			if (devices[i] != null) {
+				System.out.println(devices[i].getId() + ": " + devices[i].getName());
+				hasDevice = true;
 			}
-			System.out.println();
-		} else {
+		}
+		if (!hasDevice) {
 			System.out.println("Camera nu are nici un dispozitiv! \n");
 		}
 	}
@@ -37,7 +39,7 @@ public class RoomViews {
 		} else {
 			System.out.println("1. Modificati starea dispozitivelor");
 		}
-		System.out.println("2. Stergeri camera");
+		System.out.println("2. Stergeti camera");
 		System.out.println("3. Inapoi");
 	}
 
@@ -55,10 +57,4 @@ public class RoomViews {
 			}
 		}
 	}
-	
-	public void addDeviceInRoom(Room room, Device device) {
-		room.addDeviceInRoom(device);
-		System.out.println("Ati adaugat: " + device.getName() + " in camera " + room.getName());
-	}
-	
 }

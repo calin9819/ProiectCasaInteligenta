@@ -7,11 +7,10 @@ public class Room {
 	private String name;
 	private List<Device> devices;
 	
-	public Room(int id, String name, List<Device> devices) {
+	public Room(int id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.devices = devices;
 	}
 	
 	public Room() {
@@ -41,16 +40,4 @@ public class Room {
 	public void setDevices(List<Device> devices) {
 		this.devices = devices;
 	}
-	
-	public void addDeviceInRoom(Device device) {
-		//TODO: Crash: Cannot invoke "java.util.List.add(Object)" becouse this.devices is null
-		devices.add(device);
-	}
-	
-	public void removeDeviceFromRoom(Device device) {
-		devices.remove(device);
-	}
-	
-	
-
 }

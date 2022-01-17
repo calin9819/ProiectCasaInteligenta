@@ -1,6 +1,7 @@
 package controllers;
 
 import java.awt.AWTException;
+import java.awt.TrayIcon.MessageType;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Scanner;
@@ -60,18 +61,31 @@ public class RoomController {
 	}
 	
 	public void handleRoomDetails(Scanner scanner) throws IOException, AWTException {
-		this.views.roomDetails(this.room);
+		Device[] devices = this.deviceMapper.read();
+		Device[] devicesInRoom = new Device[1000];
+		int deviceCount = 0;
+		for (int i = 0; i < devices.length; i++) {
+			if (devices[i] != null) {
+				if (devices[i].getRoomId() == this.room.getId()) {
+					devicesInRoom[deviceCount] = devices[i];
+					deviceCount++;
+				}
+			}
+		}
+		this.views.roomDetails(this.room, devicesInRoom);
 		this.views.roomDetailsMenu(this.room);
 		System.out.println("Alegerea dvs.:");
 		int choice = Integer.parseInt(scanner.nextLine());
 		switch(choice) {
 		case 1:
 			addInRoom(scanner);
-			//TODO: NEED UPDATE room
-//			this.mapper.update(this.room);
 			break;
 		case 2:
 			this.mapper.delete(this.room);
+			for (int i = 0; i < deviceCount; i++) {
+				devicesInRoom[i].setRoomId(0);
+				this.deviceMapper.update(devicesInRoom[i]);
+			}
 		case 3: 
 			return;
 		default:
@@ -79,7 +93,7 @@ public class RoomController {
 		}
 	}
 	
-	public void addInRoom(Scanner scanner) throws IOException {
+	public void addInRoom(Scanner scanner) throws IOException, AWTException {
 		Device[] devices = this.deviceMapper.read();
 		this.deviceViews.deviceList(devices);
 		System.out.println();
@@ -90,7 +104,9 @@ public class RoomController {
 			case 1:
 				System.out.println("Alegeti dispozitivul dupa id: ");
 				int id = Integer.parseInt(scanner.nextLine());
-				this.views.addDeviceInRoom(this.room, deviceMapper.getDevice(id));
+				Device device = this.deviceMapper.getDevice(id);
+				device.setRoomId(this.room.getId());
+				this.deviceMapper.update(device);
 				break;		
 			case 2:
 				return;
