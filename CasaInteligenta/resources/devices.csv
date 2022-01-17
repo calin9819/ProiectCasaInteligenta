@@ -1,4 +1,10 @@
-1,Bec inteligent 1,false
-2,Bec inteligent 2,true
-3,Alexa,true
-4,Boxa Google 1,false
+1,Bec inteligent 1,false,0
+2,Bec inteligent 2,true,0
+3,Alexa,true,-1
+4,Boxa Google 1,false,3
+5,Test,true,0
+6,abcd,false,0
+7,asdfasdf,true,0
+8,Led,true,0
+9,Led 2,false,0
+10,Televizor,false,-1

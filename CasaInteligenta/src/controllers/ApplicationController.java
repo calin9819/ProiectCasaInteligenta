@@ -11,6 +11,7 @@ public class ApplicationController {
 	ApplicationViews views = new ApplicationViews();
 	NotificationManager notificationManager = NotificationManager.getInstance();
 	DeviceController deviceController = new DeviceController();
+	RoomController roomController = new RoomController();
 	
 	public void launchApplication() throws AWTException, IOException {
 		Scanner scanner = new Scanner(System.in);
@@ -32,6 +33,7 @@ public class ApplicationController {
 				this.deviceController.handleDeviceMenu(scanner);
 				break;
 			case 2:
+				this.roomController.handleRoomMenu(scanner);
 				break;
 			case 3:
 				return -1;

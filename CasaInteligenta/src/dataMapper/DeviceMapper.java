@@ -29,6 +29,9 @@ public class DeviceMapper {
 			deviceObject.setId(Integer.parseInt(device[0]));
 			deviceObject.setName(device[1]);
 			deviceObject.setOn(Boolean.parseBoolean(device[2]));
+			if (device.length > 3) {
+				deviceObject.setRoomId(Integer.parseInt(device[3]));
+			}
 			
 			devices[i] = deviceObject;
 			i++;
@@ -57,7 +60,7 @@ public class DeviceMapper {
 				id++;
 			}
 		}
-		String line = id + "," + device.getName() + "," + device.isOn() +"\n";
+		String line = id + "," + device.getName() + "," + device.isOn() + "," + device.getRoomId() +"\n";
 		writer.append(line);
 		writer.close();
 		notificationManager.displayMessage("A fost creat: " + id + ". " + device.getName(), MessageType.INFO);
@@ -73,6 +76,7 @@ public class DeviceMapper {
 		for (int i = 0; i < devices.length; i++) {
 			if (devices[i].getId() == device.getId()) {
 				devices[i].setOn(device.isOn());
+				devices[i].setRoomId(device.getRoomId());
 				break;
 			}
 		}
@@ -80,17 +84,13 @@ public class DeviceMapper {
 		BufferedWriter writer = new BufferedWriter(new FileWriter("resources/devices.csv", false));
 		for (int i = 0; i < devices.length; i++) {
 			if (devices[i] != null) {
-				String line = devices[i].getId() + "," + devices[i].getName() + "," + devices[i].isOn() +"\n";
+				String line = devices[i].getId() + "," + devices[i].getName() + "," + devices[i].isOn() + "," + devices[i].getRoomId() +"\n";
 				writer.write(line);
 			}
 		}
 		writer.close();
 		
-		if (device.isOn()) {
-			notificationManager.displayMessage("A fost pornit: " + device.getId() + ". " + device.getName(), MessageType.INFO);
-		} else {
-			notificationManager.displayMessage("A fost oprit: " + device.getId() + ". " + device.getName(), MessageType.ERROR);
-		}
+		notificationManager.displayMessage("A fost actualizat: " + device.getId() + ". " + device.getName(), MessageType.INFO);
 	}
 	
 	public void delete(Device device) throws IOException, AWTException {
